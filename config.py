@@ -6,6 +6,21 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
     FILE_DATE_FORMAT = "%Y\\%m\\%d"  # Use https://strftime.org as reference
+
+    ALLOW_IMAGES = True
+    ALLOWED_IMAGES = ['png', 'jpg', 'jpeg', 'gif']
+    IMAGE_PATH = "images"
+
+    ALLOW_VIDEOS = True
+    ALLOWED_VIDEOS = ['mp4', 'webm', 'avi']
+    VIDEO_PATH = "videos"
+
+    ALLOW_FILES = True
+    ALLOWED_FILES = ['txt', 'pdf']
+    FILE_PATH = "files"
     # DON'T TOUCH THESE BELOW
 
     UPLOADS_PATH = "uploads"
+
+
+
