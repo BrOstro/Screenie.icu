@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+
+<style>
+    .imageClip{
+        width:300px;
+        height:175px;
+        overflow:hidden;
+    }
+    a {
+      color: white;
+    }
+</style>
+
+<body class="bg-dark text-white">
+    <div class="container" style="padding-top:50px;">
+        <input type="text" id="searchText" onkeyup="filter()" placeholder="Search for text.." class="form-control">
+
+        <div class="row text-center text-lg-left">
+            {% for image in images %}
+                <div class="col-lg-3 col-md-4 col-6">
+                    <a href="{{ image['URL'] }}" target="_blank" class="d-block mb-4 h-100">
+                        <img class="img-fluid img-thumbnail imageClip" src="{{ image['URL'] }}" alt="{{ image['text'] }}">
+                        <div class="caption">
+                            {{ image['time'] }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+<script>
+    function filter() {
+        var input, filter, ul, images, imgtext, i, txtValue;
+        input = document.getElementById('searchText');
+        filter = input.value.toUpperCase();
+        images = document.getElementsByTagName('img');
+        for (i = 0; i < images.length; i++) {
+            var img = images[i];
+            imgtext = img.getAttribute("alt");
+            if (imgtext.toUpperCase().indexOf(filter) > -1) {
+                img.parentElement.parentElement.style.display = "";
+            } else {
+                img.parentElement.parentElement.style.display = "none";
+            }
+        }
+    }
+</script>

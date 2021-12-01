@@ -5,7 +5,12 @@ class Config(object):
     # CONFIGURE THESE
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
+    ENABLE_OCR = True
+
     FILE_DATE_FORMAT = "%Y\\%m\\%d"  # Use https://strftime.org as reference
+
+    LOCAL_TIMEZONE = "US/Central"
+    TIMESTAMP_FORMAT = "%Y\\%m\\%d %H:%M"
 
     ALLOW_IMAGES = True
     ALLOWED_IMAGES = ['png', 'jpg', 'jpeg', 'gif']
@@ -21,6 +26,7 @@ class Config(object):
     # DON'T TOUCH THESE BELOW
 
     UPLOADS_PATH = "uploads"
+    CLOUD_STORAGE_BUCKET = os.environ['CLOUD_STORAGE_BUCKET']
 
 
 
