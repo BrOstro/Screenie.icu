@@ -17,8 +17,11 @@ def admin_panel():
 
     for blob in blobs:
         img_timestamp = int(blob.metadata['Creation'])
-        img_time = datetime.fromtimestamp(img_timestamp, tz=pytz.timezone(current_app.config['LOCAL_TIMEZONE'])).strftime(current_app.config['TIMESTAMP_FORMAT'])
+        img_time = datetime.fromtimestamp(img_timestamp,
+                                          tz=pytz.timezone(current_app.config['LOCAL_TIMEZONE'])).strftime(
+            current_app.config['TIMESTAMP_FORMAT'])
         img_info = {'URL': str(blob.public_url), 'time': img_time, 'text': str(blob.metadata['Text'])}
         images.append(img_info)
 
+    images = sorted(images, key=lambda d: d['time'], reverse=True)  # Sort by blob creation date in descending order
     return render_template('gallery.html', title='Home', images=images)

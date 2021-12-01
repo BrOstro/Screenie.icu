@@ -36,6 +36,7 @@ def upload():
         uploaded_file = request.files['sharex']
         if uploaded_file.filename != '':
             allowed, target_filetype_dir, is_image = get_file_info(uploaded_file.filename)
+            logging.warning("Upload file name: " + str(uploaded_file.filename))
             if not allowed:
                 return "Invalid file type"
 

@@ -15,6 +15,7 @@
 <body class="bg-dark text-white">
     <div class="container" style="padding-top:50px;">
         <input type="text" id="searchText" onkeyup="filter()" placeholder="Search for text.." class="form-control">
+        <br>
 
         <div class="row text-center text-lg-left">
             {% for image in images %}
@@ -33,12 +34,12 @@
 
 <script>
     function filter() {
-        var input, filter, ul, images, imgtext, i, txtValue;
+        let input, filter , images, imgtext, i;
         input = document.getElementById('searchText');
         filter = input.value.toUpperCase();
         images = document.getElementsByTagName('img');
         for (i = 0; i < images.length; i++) {
-            var img = images[i];
+            let img = images[i];
             imgtext = img.getAttribute("alt");
             if (imgtext.toUpperCase().indexOf(filter) > -1) {
                 img.parentElement.parentElement.style.display = "";
