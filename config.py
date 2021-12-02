@@ -10,7 +10,7 @@ class Config(object):
     FILE_DATE_FORMAT = "%Y\\%m\\%d"  # Use https://strftime.org as reference
 
     LOCAL_TIMEZONE = "US/Central"
-    TIMESTAMP_FORMAT = "%b %m, %Y %I:%M %p"
+    TIMESTAMP_FORMAT = "%b %d, %Y %I:%M %p"
 
     ALLOW_IMAGES = True
     ALLOWED_IMAGES = ['png', 'jpg', 'jpeg', 'gif']

@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 import pytz
@@ -20,8 +21,10 @@ def admin_panel():
         img_time = datetime.fromtimestamp(img_timestamp,
                                           tz=pytz.timezone(current_app.config['LOCAL_TIMEZONE'])).strftime(
             current_app.config['TIMESTAMP_FORMAT'])
-        img_info = {'URL': str(blob.public_url), 'time': img_time, 'text': str(blob.metadata['Text'])}
+        img_info = {'URL': str(blob.public_url), 'time': img_time, 'text': str(blob.metadata['Text']),
+                    'labels': str(blob.metadata['Labels'])}
         images.append(img_info)
 
     images = sorted(images, key=lambda d: d['time'], reverse=True)  # Sort by blob creation date in descending order
+    logging.warning(images)
     return render_template('gallery.html', title='Home', images=images)

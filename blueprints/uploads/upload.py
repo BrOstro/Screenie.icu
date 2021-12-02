@@ -50,15 +50,21 @@ def upload():
             upload_directory = os.path.join(upload_directory, date_prefix)
             target_name = safe_join(upload_directory, secure_filename(uploaded_file.filename)).replace('\\', '/')
 
-            metadata = {'Creation': int(datetime.utcnow().timestamp()), 'Text': ''}
+            metadata = {'Creation': int(datetime.utcnow().timestamp()), 'Text': '', 'Labels': ''}
 
             if is_image and current_app.config['ENABLE_OCR']:
                 ocr_client = vision.ImageAnnotatorClient()
                 ocr_image = vision.Image(content=image_content)
-                response = ocr_client.text_detection(image=ocr_image)
-                text = response.text_annotations[0].description
-                logging.warning(text)
-                metadata['Text'] = text
+                text_response = ocr_client.text_detection(image=ocr_image).text_annotations
+                label_response = ocr_client.label_detection(image=ocr_image).label_annotations
+
+                if len(text_response) > 0:
+                    text = text_response[0].description
+                    metadata['Text'] = text
+
+                if len(label_response) > 0:
+                    for label in label_response:
+                        metadata['Labels'] += label.description + " "
 
             blob = bucket.blob(target_name)
             blob.metadata = metadata
